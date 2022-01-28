@@ -9,8 +9,6 @@ import org.springframework.data.cassandra.core.mapping.Table;
 @Table("employee")
 public class EmployeeDetailsEntity {
 
-
-
     @PrimaryKeyColumn(name = "employee_id", type = PrimaryKeyType.PARTITIONED)
     private String employeeId;
 

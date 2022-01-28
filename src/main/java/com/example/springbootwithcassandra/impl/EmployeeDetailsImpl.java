@@ -18,35 +18,35 @@ import java.util.UUID;
 @Service
 public class EmployeeDetailsImpl implements EmployeeService {
 
-    private final static Logger logger =  LoggerFactory.getLogger(EmployeeDetailsImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(EmployeeDetailsImpl.class);
 
     @Autowired
     private EmployeeDetailsDao employeeDetailsDao;
 
     @Override
     public String createEmployee(EmployeeRequest employeeRequest) {
-        logger.info(" START createEmployee() service request" +employeeRequest);
+        logger.info(" START createEmployee() service request" + employeeRequest);
 
-        String message="";
-      EmployeeDetailsEntity employeeDetailsEntity = new EmployeeDetailsEntity();
+        String message = "";
+        EmployeeDetailsEntity employeeDetailsEntity = new EmployeeDetailsEntity();
 
-      try {
-          employeeDetailsEntity.setEmployeeId(UUID.randomUUID().toString());
-          employeeDetailsEntity.setEmployeeEmail(employeeRequest.getEmployeeEmail());
-          employeeDetailsEntity.setEmployeeName(employeeRequest.getEmployeeName());
-          employeeDetailsEntity.setEmployeeSalary(employeeRequest.getEmployeeSalary());
-         employeeDetailsDao.save(employeeDetailsEntity);
-         message = "Data is Successfully Inserted into the Database";
+        try {
+            employeeDetailsEntity.setEmployeeId(UUID.randomUUID().toString());
+            employeeDetailsEntity.setEmployeeEmail(employeeRequest.getEmployeeEmail());
+            employeeDetailsEntity.setEmployeeName(employeeRequest.getEmployeeName());
+            employeeDetailsEntity.setEmployeeSalary(employeeRequest.getEmployeeSalary());
+            employeeDetailsDao.save(employeeDetailsEntity);
+            message = "Data is Successfully Inserted into the Database";
 
-      } catch (Exception e) {
-               message ="Exception while data update";
+        } catch (Exception e) {
+            message = "Exception while data update";
 
-          logger.error("Exception occurred while updating the data" +e.getMessage());
+            logger.error("Exception occurred while updating the data" + e.getMessage());
 
-      }
-        logger.info("END createEmployee() service request "+message);
+        }
+        logger.info("END createEmployee() service request " + message);
 
-      return message;
+        return message;
 
     }
 
@@ -59,7 +59,7 @@ public class EmployeeDetailsImpl implements EmployeeService {
         try {
             List<EmployeeDetailsEntity> employeeDetailsEntityList = employeeDetailsDao.findAll();
 
-            for(EmployeeDetailsEntity employeeDetailsEntity : employeeDetailsEntityList) {
+            for (EmployeeDetailsEntity employeeDetailsEntity : employeeDetailsEntityList) {
                 EmployeeDetailsTo employeeDetailsTo = new EmployeeDetailsTo();
 
                 employeeDetailsTo.setEmployeeId(UUID.fromString(employeeDetailsEntity.getEmployeeId()));
@@ -70,10 +70,10 @@ public class EmployeeDetailsImpl implements EmployeeService {
             }
 
         } catch (Exception e) {
-             logger.info("Error while getting all the employee data "+e.getMessage());
+            logger.info("Error while getting all the employee data " + e.getMessage());
 
         }
-        logger.info("END getAllEmployeesData() from Database "+listOfEmpData);
+        logger.info("END getAllEmployeesData() from Database " + listOfEmpData);
         return listOfEmpData;
     }
 }
